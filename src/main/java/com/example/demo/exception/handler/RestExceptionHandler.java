@@ -1,6 +1,7 @@
 package com.example.demo.exception.handler;
 
 import com.example.demo.exception.ExceptionResponse;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.exception.UnsupportedMathException;
 
 import java.util.Date;
@@ -25,5 +26,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 	private final ResponseEntity<ExceptionResponse> UnsupportedMathException(Exception ex){
 		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage());
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	private final ResponseEntity<ExceptionResponse> ResourceNotFoundException(Exception ex){
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 }
